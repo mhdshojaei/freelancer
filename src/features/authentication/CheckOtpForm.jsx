@@ -1,5 +1,3 @@
-/** @format */
-
 import { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
 import { checkOtp } from '../../services/authService';
@@ -9,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { HiArrowRight } from 'react-icons/hi';
 import { CiEdit } from 'react-icons/ci';
 import Loading from '../../ui/Loading';
-function CheckOtpForm({ phoneNumber, onBack, onResendOtp, optResponse }) {
+function CheckOtpForm({ phoneNumber, onBack, onResendOtp, otpResponse }) {
 	const [otp, setOtp] = useState();
 	const [time, setTime] = useState(5);
 	const navigate = useNavigate();
@@ -21,12 +19,14 @@ function CheckOtpForm({ phoneNumber, onBack, onResendOtp, optResponse }) {
 		try {
 			const { message, user } = await mutateAsync({ phoneNumber, otp });
 			toast.success(message);
-			if (user.isActive) {
-				if (user.role == 'OWNER') navigate('/owner');
-				if (user.role == 'FREELANCER') navigate('freelancer');
-			} else {
-				navigate('/complete-profile');
+			if (user.status !== 2) {
+				navigate('/');
+				toast('پروفایل شما در انتظار تایید است', { icon: '👍' });
+				return;
 			}
+
+			if (user.role == 'OWNER') navigate('/owner');
+			if (user.role == 'FREELANCER') navigate('freelancer');
 		} catch (error) {
 			toast.error(error?.response?.data?.message);
 		}
@@ -45,9 +45,9 @@ function CheckOtpForm({ phoneNumber, onBack, onResendOtp, optResponse }) {
 				<button onClick={onBack}>
 					<HiArrowRight className='w-6 h-6 text-secondary-500' />
 				</button>
-				{optResponse && (
+				{otpResponse && (
 					<p className='flex items-center gap-x-2 my-4'>
-						<span>{optResponse ? message : ''}</span>
+						<span> {otpResponse?.message}</span>
 						<button onClick={onBack}>
 							<CiEdit className='w-6 h-6 text-primary-900' />
 						</button>
