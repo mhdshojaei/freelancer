@@ -8,7 +8,7 @@ import ProjectRow from './ProjectRow';
 function ProjectTable() {
 	const { isLoading, projects } = useOwnerProjects();
 	if (isLoading) return <Loading />;
-	console.log(projects);
+
 	if (!projects.length) return <Empty resourceName='پروژه' />;
 	return (
 		<Table>

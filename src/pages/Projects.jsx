@@ -1,9 +1,9 @@
 import ProjectTable from '../features/projects/ProjectTable';
-import useOwnerProjects from '../features/projects/useOwnerProjects';
-
+import ProjectsHeader from '../features/projects/ProjectsHeader';
 function Projects() {
 	return (
 		<div>
+			<ProjectsHeader />
 			<ProjectTable />
 		</div>
 	);

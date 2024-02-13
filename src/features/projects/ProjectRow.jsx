@@ -72,7 +72,11 @@ function ProjectRow({ project, index }) {
 							onClose={() => {
 								setIsDeleteOpen(!isDeleteOpen);
 							}}
-							onConfirm={removeProject()}
+							onConfirm={() =>
+								removeProject(project._id, {
+									onSuccess: () => setIsDeleteOpen(false),
+								})
+							}
 							disabled={false}
 						/>
 					</Modal>
