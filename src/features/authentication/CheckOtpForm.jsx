@@ -11,13 +11,17 @@ function CheckOtpForm({ phoneNumber, onBack, onResendOtp, otpResponse }) {
 	const [otp, setOtp] = useState();
 	const [time, setTime] = useState(5);
 	const navigate = useNavigate();
+
 	const { isPending, mutateAsync } = useMutation({
 		mutationFn: checkOtp,
 	});
 	const checkOtpHandler = async (e) => {
 		e.preventDefault();
 		try {
-			const { message, user } = await mutateAsync({ phoneNumber, otp });
+			const { message, user } = await mutateAsync({
+				phoneNumber,
+				otp,
+			});
 			toast.success(message);
 			if (user.status !== 2) {
 				navigate('/');
