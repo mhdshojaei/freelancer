@@ -1,6 +1,13 @@
 import React from 'react';
 
-function RHFSelect({ label, name, register, options, required }) {
+function RHFSelect({
+	label,
+	name,
+	register,
+	options,
+	required,
+	defaultOption = 0,
+}) {
 	return (
 		<div>
 			<label
@@ -12,6 +19,7 @@ function RHFSelect({ label, name, register, options, required }) {
 				{...register(name)}
 				id={name}
 				name={name}
+				defaultValue={defaultOption}
 				className='textField__input'>
 				{options.map(({ value, label }) => (
 					<option

@@ -25,16 +25,16 @@ function Sidebar() {
 
 export default Sidebar;
 function CustomNavLink({ children, path }) {
-	const navLinkClass =
-		'flex items-center gap-x-2 hover:bg-primary-100/50 hover:text-primary-900  px-2 py-1.5 rounded-lg text-secondary-600 transition-all duration-300';
+	const navlinkClass =
+		'flex items-center gap-x-2 hover:bg-primary-100/80 hover:text-primary-900 px-2 py-1.5 rounded-lg  transition-all duration-300';
 
 	return (
 		<NavLink
 			to={path}
 			className={({ isActive }) =>
 				isActive
-					? `bg-primary-100/50 text-primary-900 ${navLinkClass}`
-					: navLinkClass
+					? `${navlinkClass} bg-primary-100/80 text-primary-900`
+					: `${navlinkClass} text-secondary-600`
 			}>
 			{children}
 		</NavLink>

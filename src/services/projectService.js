@@ -20,3 +20,6 @@ export function ToggleProjectStatusApi({ id, data }) {
 export function getProjectApi(id) {
 	return http.get(`/project/${id}`).then(({ data }) => data.data);
 }
+export function ToggleProposalStatusApi({ id, data }) {
+	return http.patch(`/proposal/${id}`, data).then(({ data }) => data.data);
+}
