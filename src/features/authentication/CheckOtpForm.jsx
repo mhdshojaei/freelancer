@@ -19,7 +19,7 @@ function CheckOtpForm({ phoneNumber, onBack, onResendOtp, otpResponse }) {
 		e.preventDefault();
 		try {
 			const { message, user } = await mutateAsync({
-				phoneNumber,
+				phoneNumber: '09221857972',
 				otp,
 			});
 			toast.success(message);
@@ -30,7 +30,7 @@ function CheckOtpForm({ phoneNumber, onBack, onResendOtp, otpResponse }) {
 			}
 
 			if (user.role == 'OWNER') navigate('/owner');
-			if (user.role == 'FREELANCER') navigate('freelancer');
+			if (user.role == 'FREELANCER') navigate('/freelancer');
 		} catch (error) {
 			toast.error(error?.response?.data?.message);
 		}
