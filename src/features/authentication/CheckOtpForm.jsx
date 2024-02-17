@@ -19,7 +19,7 @@ function CheckOtpForm({ phoneNumber, onBack, onResendOtp, otpResponse }) {
 		e.preventDefault();
 		try {
 			const { message, user } = await mutateAsync({
-				phoneNumber: '09221857972',
+				phoneNumber: '09917433847',
 				otp,
 			});
 			toast.success(message);
