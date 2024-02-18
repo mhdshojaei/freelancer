@@ -18,13 +18,16 @@ import FreelancerDashboard from './pages/FreelancerDashboard';
 import Proposals from './pages/Proposals';
 import SubmitedProjects from './pages/SubmitedProjects';
 import FreelancerLayout from './features/freelancer/FreelancerLayout';
+import ProtectedRoute from './ui/ProtectedRoute';
+import AdminLayout from './features/admin/AdminLayout';
+import AdminDashboard from './pages/AdminDashboard';
+import Users from './pages/Users';
 const queryClient = new QueryClient();
 function App() {
 	return (
 		<DarkModeProvider>
 			<QueryClientProvider client={queryClient}>
 				<Toaster />
-
 				<Routes>
 					<Route
 						index
@@ -34,10 +37,17 @@ function App() {
 						path='/auth'
 						element={<Auth />}
 					/>
-
+					<Route
+						path='/complete-profile'
+						element={<CompleteProfile />}
+					/>
 					<Route
 						path='/owner'
-						element={<OwnerLayout />}>
+						element={
+							<ProtectedRoute>
+								<OwnerLayout />
+							</ProtectedRoute>
+						}>
 						<Route
 							index
 							element={
@@ -62,7 +72,11 @@ function App() {
 					</Route>
 					<Route
 						path='/freelancer'
-						element={<FreelancerLayout />}>
+						element={
+							<ProtectedRoute>
+								<FreelancerLayout />
+							</ProtectedRoute>
+						}>
 						<Route
 							index
 							element={
@@ -86,9 +100,38 @@ function App() {
 						/>
 					</Route>
 					<Route
-						path='/complete-profile'
-						element={<CompleteProfile />}
-					/>
+						path='/admin'
+						element={
+							<ProtectedRoute>
+								<AdminLayout />
+							</ProtectedRoute>
+						}>
+						<Route
+							index
+							element={
+								<Navigate
+									to='dashboard'
+									replace
+								/>
+							}
+						/>
+						<Route
+							path='dashboard'
+							element={<AdminDashboard />}
+						/>
+						<Route
+							path='users'
+							element={<Users />}
+						/>
+						<Route
+							path='proposals'
+							element={<Proposals />}
+						/>
+						<Route
+							path='projects'
+							element={<SubmitedProjects />}
+						/>
+					</Route>
 					<Route
 						path='*'
 						element={<NotFound />}
